@@ -14,6 +14,7 @@ void setup(){
 int numberOfImages = 5;
 PImage[] images;
 PImage img1, img2, img3, img4, img5;
+int spacer = (int) (generalWidth / numberOfImages);
 
 void init(){
   loadImages(numberOfImages);  
@@ -24,11 +25,13 @@ void loadImages(int numberOfImages){
   
   images = new PImage[numberOfImages];
   
-  img1 = loadImage("data/1.jpg");
-  img2 = loadImage("data/2.JPG");
-  img3 = loadImage("data/3.png");
-  img4 = loadImage("data/4.jpg");
-  img5 = loadImage("data/5.jpg");
+  String url = "http://lorempixel.com/300/300/";
+  
+  img1 = loadImage(url, "png");
+  img2 = loadImage(url, "png");
+  img3 = loadImage(url, "png");
+  img4 = loadImage(url, "png");
+  img5 = loadImage(url, "png");
   
   images[0] = img1;
   images[1] = img2;
@@ -51,31 +54,30 @@ void resizeImages(){
     
     if(i == 1) { 
       img = images[1]; 
-      images[1] = img.get((generalWidth / numberOfImages), (generalWidth / numberOfImages), generalWidth - (generalWidth / numberOfImages), generalHeight - (generalWidth / numberOfImages)); 
+      images[1] = img.get(spacer, spacer, generalWidth - spacer, generalHeight - spacer); 
     }
     
     if(i == 2) { 
       img = images[2]; 
-      images[2] = img.get((int) ((generalWidth / numberOfImages)*2), (int) ((generalWidth / numberOfImages)*2), 
-                                  generalWidth - ((generalWidth / numberOfImages)*2), generalHeight - (generalWidth / numberOfImages)*2); 
+      images[2] = img.get((int) (spacer*2), (int) (spacer*2), generalWidth - (spacer*2), generalHeight - spacer*2); 
     }
                                   
     if(i == 3) {  
       img = images[3]; 
-      images[3] = img.get((int) ((generalWidth / numberOfImages)*3), (int) ((generalWidth / numberOfImages)*3), 
-                                  generalWidth - ((generalWidth / numberOfImages)*3), generalHeight - (generalWidth / numberOfImages)*3); 
+      images[3] = img.get((int) (spacer*3), (int) (spacer*3), generalWidth - (spacer*3), generalHeight - spacer*3); 
     }
     
     if(i == 4) {  
       img = images[4]; 
-      images[4] = img.get((int) ((generalWidth / numberOfImages)*4), (int) ((generalWidth / numberOfImages)*4), 
-                                  generalWidth - ((generalWidth / numberOfImages)*4), generalHeight - (generalWidth / numberOfImages)*4); 
+      images[4] = img.get((int) (spacer*4), (int) (spacer*4), generalWidth - (spacer*4), generalHeight - spacer*4); 
     }
   }
 }
 
 void draw(){
   background(250);
+  
+  pushMatrix();
   imageMode(CENTER);
   translate(generalWidth/2, generalHeight/2);
   image(images[0], 0, 0);
@@ -83,4 +85,21 @@ void draw(){
   image(images[2], 0, 0);
   image(images[3], 0, 0);
   image(images[4], 0, 0);
+  popMatrix();
+ 
+  noFill();
+  strokeWeight(30);
+  stroke(0, 0, 255);
+  //rect(0, 0, generalWidth, generalHeight);
+  rect(spacer/2, spacer/2, generalWidth - spacer, generalHeight - spacer);
+  rect(spacer, spacer, generalWidth - spacer*2, generalHeight - spacer*2);
+  rect(spacer + spacer/2, spacer + spacer/2, generalWidth - spacer*3, generalHeight - spacer*3);
+  rect(spacer + spacer, spacer+ spacer, generalWidth - spacer*4, generalHeight - spacer*4);
+  
+  println(spacer);
+  
+}
+
+void mousePressed(){
+  
 }
